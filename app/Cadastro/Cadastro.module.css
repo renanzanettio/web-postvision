@@ -1,0 +1,481 @@
+/* Container principal: tela dividida em duas colunas */
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: var(--primary-offwhite-500);
+}
+
+/* Lado esquerdo: mensagem de boas-vindas */
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.left h1 {
+  color: var(--secundary-purple-600);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.left p {
+  color: var(--highlight-black-700);
+  font-size: 1rem;
+  max-width: 420px;
+  text-align: center;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+/* Círculos decorativos */
+.circles {
+  position: absolute;
+  top: -80px;
+  right: -120px;
+  width: 400px;
+  height: 400px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.circlesBottom {
+  position: absolute;
+  left: -120px;
+  bottom: -80px;
+  width: 320px;
+  height: 320px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Lado direito: formulário */
+.right {
+  flex: 1;
+  background: var(--secundary-purple-950);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 2rem 0;
+}
+
+
+.formBox {
+  background: var(--secundary-purple-950);
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px 0 rgba(60,32,145,0.08);
+  padding: 2.5rem 2rem 2rem 2rem;
+  width: 100%;
+  max-width: 420px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.title {
+  color: var(--highlight-black-500);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.inputGroup label {
+  color: var(--highlight-black-800);
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.inputGroup input {
+  background: var(--white);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  color: var(--highlight-black-500);
+  box-shadow: 0 2px 8px 0 rgba(60,32,145,0.07);
+  outline: none;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.signUpSelect {
+  background: var(--white);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 2.5rem 0.7rem 1.1rem; /* aumenta o padding-right */
+  font-size: 1rem;
+  color: var(--highlight-black-500);
+  box-shadow: 0 2px 8px 0 rgba(60,32,145,0.07);
+  outline: none;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-montserrat), sans-serif;
+  appearance: none; /* esconde a seta padrão */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='none' stroke='%23979797' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.2rem center; /* ajusta a posição da seta */
+  background-size: 1.2rem;
+}
+
+.inputGroup input:focus {
+  box-shadow: 0 0 0 2px var(--secundary-purple-700);
+}
+
+.button {
+  background: var(--secundary-purple-600);
+  color: var(--white);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.9rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.button:hover {
+  background: var(--secundary-purple-700);
+}
+
+.signUpLink {
+  text-align: center;
+  margin-top: 0.7rem;
+  color: var(--highlight-black-700);
+  font-size: 1rem;
+}
+
+.signUpLink a {
+  color: var(--secundary-purple-600);
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 0.2rem;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.2rem 0 0.7rem 0;
+  color: var(--highlight-black-800);
+  font-size: 0.95rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--highlight-black-800);
+  margin: 0 0.7rem;
+  opacity: 0.2;
+}
+
+.socialButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.2rem;
+}
+
+.socialBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: var(--white);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  color: var(--highlight-black-500);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(60,32,145,0.07);
+  transition: background 0.2s;
+}
+
+.socialBtn:hover {
+  background: var(--highlight-yellow-600);
+}
+
+.socialIcon {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+  .left, .right {
+    flex: unset;
+    width: 100%;
+    min-height: 320px;
+  }
+  .formBox {
+    max-width: 98vw;
+  }
+}
+
+/* Estilos para a tela de signUp */
+.signUpContainer {
+  display: flex;
+  min-height: 100vh;
+  background: var(--primary-offwhite-500);
+}
+
+.signUpWelcome {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.signUpWelcome h1 {
+  color: var(--secundary-purple-600);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.signUpWelcome p {
+  color: var(--highlight-black-700);
+  font-size: 1rem;
+  max-width: 420px;
+  text-align: center;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.backButton {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: var(--white);
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--secundary-purple-600);
+  font-size: 1.2rem;
+}
+
+
+
+.signUpCircles {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 400px;
+  height: 400px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.signUpCirclesBottom {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 400px;
+  height: 400px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.signUpFormSection {
+  flex: 1;
+  min-height: 100vh;
+  background: var(--secundary-purple-950);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+}
+
+.signUpFormBox {
+  background: var(--secundary-purple-950);
+  border-radius: 1.5rem;
+  padding: 2.5rem 2rem 2rem 2rem;
+  width: 80%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: -1.2rem;
+}
+
+.signUpTitle {
+  color: var(--highlight-black-500);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.signUpRow {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.signUpInputGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.signUpInputGroup label {
+  color: var(--highlight-black-800);
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.signUpInputGroup input {
+  background: var(--white);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  color: var(--highlight-black-500);
+  box-shadow: 0 2px 8px 0 rgba(60,32,145,0.07);
+  outline: none;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.signUpInputGroup input:focus {
+  box-shadow: 0 0 0 2px var(--secundary-purple-700);
+}
+
+.signUpButton {
+  background: var(--secundary-purple-600);
+  color: var(--white);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.9rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: 490px;
+  min-width: 300px;
+  align-self: center;
+  padding:  8px 16px;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.signUpButton:hover {
+  background: var(--secundary-purple-700);
+}
+
+.signUpAccountLink {
+  text-align: center;
+  margin-top: 0.7rem;
+  color: var(--highlight-black-700);
+  font-size: 1rem;
+}
+
+.signUpAccountLink a {
+  color: var(--secundary-purple-600);
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 0.2rem;
+}
+
+.signUpDivider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.2rem 0 0.7rem 0;
+  color: var(--highlight-black-800);
+  font-size: 0.95rem;
+}
+
+.signUpDivider::before,
+.signUpDivider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--highlight-black-800);
+  margin: 0 0.7rem;
+  opacity: 0.2;
+}
+
+.signUpSocialButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.2rem;
+}
+
+.signUpSocialBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: var(--white);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  color: var(--highlight-black-500);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(60,32,145,0.07);
+  transition: background 0.2s;
+}
+
+.signUpSocialBtn:hover {
+  background: var(--highlight-yellow-600);
+}
+
+.signUpSocialIcon {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+@media (max-width: 900px) {
+  .signUpContainer {
+    flex-direction: column;
+  }
+  .signUpWelcome, .signUpFormSection {
+    flex: unset;
+    width: 100%;
+    min-height: 320px;
+  }
+  .signUpFormBox {
+    max-width: 98vw;
+  }
+}
+

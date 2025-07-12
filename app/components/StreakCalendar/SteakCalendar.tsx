@@ -1,0 +1,51 @@
+"use client";
+import styles from './StreakCalendar.module.css';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { useState } from 'react';
+import { Icon } from '@iconify/react';
+
+// Exemplo: dias marcados como streak
+const streakDays = [
+  new Date(2025, 5, 30),
+  new Date(2025, 6, 1),
+  new Date(2025, 6, 2),
+  new Date(2025, 6, 4),
+  new Date(2025, 6, 5),
+  new Date(2025, 6, 7),
+  new Date(2025, 6, 8),
+  new Date(2025, 6, 9),
+  new Date(2025, 6, 11),
+];
+
+export default function StreakCalendar() {
+  const selectedDays = streakDays;
+
+  return (
+    <div className={styles.calendarBoard}>
+      <div className={styles.calendarContainer}>
+
+        <div className={styles.calendarTitle}><Icon  icon="mdi:calendar-month" className={styles.iconCalendar}/>Calendar</div>
+
+        <DayPicker
+          mode="multiple"
+          selected={selectedDays}
+          disabled={{ before: new Date(2100, 0, 1) }} // Desabilita todos os dias
+          modifiersClassNames={{
+            selected: styles.streakDay,
+            today: styles.todayDay,
+            weekend: styles.weekendDay,
+            disabled: styles.disabledDay,
+            outside: styles.outsideDay,
+          }}
+          weekStartsOn={0} // semana começa na segunda
+          showOutsideDays
+          styles={{
+            caption: { background: 'var(--secundary-purple-600)', color: 'var(--white)', borderRadius: '8px', padding: '4px 0', fontWeight: 600, margin: 20, opacity: 0.8},
+          }}
+        />
+
+      </div>
+    </div>
+  );
+}

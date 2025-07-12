@@ -1,0 +1,173 @@
+.homeContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    margin-inline: 10%;
+    width: 80%;
+
+
+    & .textContent {
+    width: 40%;
+    text-align: start;
+
+        & .date{
+            font-size: 1.2rem;
+            color: var(--highlight-black-500);
+        }
+
+        & .title {
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--highlight-black-500);
+            margin-bottom: 1rem;
+        }
+
+        & .description {
+            font-size: 1.2rem;
+            color: var(--highlight-black-700);
+            margin-bottom: 6rem;
+        }
+
+        & .homeButtons {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: space-between;
+            gap: 50px;
+            margin-bottom: 50px;
+            
+            & .button {
+                border: 1px solid var(--secundary-purple-500);
+                padding: 10px 19px;
+                border-radius: 10px;
+                font-weight: 400;
+                text-decoration: none;
+                transition: 0.3s ease;
+                font-size: 1.15rem;
+                cursor: pointer;
+                white-space: nowrap;
+            
+                &:hover {
+                transform: scale(1.05);
+                transition: 0.3s ease;
+                }
+            }
+            
+            & .goToPostVision {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--secundary-purple-500);
+                color: var(--white);
+            }
+
+            & .downloadApp {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                border: 1px solid var(--secundary-purple-500);
+                color: var(--secundary-purple-500);
+            }
+        }
+
+    }
+
+    .imageContent {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+
+        & .img {
+            width: 60%;
+            height: auto;
+        }
+    }
+
+}
+
+.aboutSection {
+    width: 100%;
+    min-height: 735px;
+    display: flex;
+    flex-direction: column;
+    /* background-color: var(--secundary-purple-500); */
+    background-color: var(--secundary-purple-950);
+
+    & .title {
+        margin-top: 2rem;
+        font-size: 2rem;
+        font-weight: 600;
+        /* color: var(--white); */
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    & .aboutContent {
+        position: relative;
+        width: 80%;
+        min-height: 600px;
+        gap: 50px;
+        margin-inline: 10%;
+        padding: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+
+
+        .wrapInfosContent {
+            display: flex;
+            width: 600px;
+            height: 100%;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            
+            & .infoContent {
+                width: 260px;
+                margin-bottom: 2rem;
+
+                & .infoIcon {
+                    width: 50px;
+                    height: 50px;
+                    margin-bottom: 1rem;
+                    border-radius: 18px;
+                    border: 2px solid var(--secundary-purple-500);
+                    /* border: 2px solid var(--highlight-yellow-500); */
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    & .icon{
+                        width: 2rem;
+                        height: 2rem;
+                        color: var(--secundary-purple-500);
+                        /* color: var(--highlight-yellow-500); */
+                    }
+                    
+                }
+
+                & .infoText {
+                    position: relative;
+                    font-size: 1.2rem;
+                    /* color: var(--white); */
+                    line-height: 1.5;
+                    width: 100%;
+                }
+            }
+        }
+
+        & .logo {
+            width: 550px;
+            height: auto;
+            align-self: center;
+            opacity: 0.9;
+        }
+
+
+    }
+}
