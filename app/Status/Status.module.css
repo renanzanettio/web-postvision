@@ -14,7 +14,13 @@
   height: 100%;
   padding: 24px;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 2rem;
+  overflow-y: scroll;
+
+}
+
+.mainContainer::-webkit-scrollbar{
+  display: none;
 }
 
 .dashboardContainer {
@@ -33,55 +39,42 @@
   margin-top: -10px;
 }
 
-.filterRow {
-  margin-top: 2rem;
-  display: flex;
-  align-items: center;
-  align-self: flex-start;
-  margin-inline: 2.5%;
+.titleExercices{
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--highlight-black-500);
   width: calc(100% - 5%);
-  height: 50px;
-  overflow-x: scroll;
-  gap: 15px;
-
-
 }
 
-.filterRow::-webkit-scrollbar {
-  display: none;
-}
-
-.filterButton {
+.graphsWrap {
+  width: calc(100% - 5%);
+  height: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  height: 50px;
-  padding: 0.5rem 1rem;
-  background-color: var(--white);
-  border-radius: 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: ease 300ms;
-
-
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: start;
+  gap: 1rem;
 }
 
-  input[type="radio"]:checked {
-    background-color: var(--secundary-purple-500);
-    color: var(--secundary-purple-700);
-    box-shadow: 0 4px 8px rgba(80, 0, 120, 0.15);
+.graphContainer {
+  padding: 1rem 1.5rem;
+  width: fit-content;
+  width: 45%;
+  min-width: 400px;
+  min-height: 350px;
+  background-color: var(--white);
+  border-radius: 10px;
+
+  & .title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--highlight-black-500);
   }
 
-.filterIcon {
-  width: 24px;
-  height: 24px;
-  color: var(--primary-offwhite-600);
-}
+  & .subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--highlight-black-700);
+  }
 
-.selectedFilter {
-  background-color: var(--secundary-purple-600);
-  color: var(--white);
-  font-weight: bold;
-  border-radius: 30px;
 }

@@ -6,10 +6,11 @@ import Menu from "../components/Menu/Menu";
 import RightBoard from "../components/RightBoard/RightBoard";
 import DashboardGraphs from "../../public/images/dashboard-graphs.svg";
 import { useState } from "react";
+import FilterRow from "../components/FilterRow/FilterRow";
+
 
 export default function Status() {
-  const [selected, setSelected] = useState("todos");
-  const [showFilters, setShowFilters] = useState(true);
+    const [selected, setSelected] = useState("Todos");
 
   return (
     <div className={styles.statusContainer}>
@@ -17,56 +18,39 @@ export default function Status() {
 
       <div className={styles.mainContainer}>
         <div className={styles.dashboardContainer}>
-          <Image
-            alt="Yellow Graphs"
-            src={DashboardGraphs}
-            className={styles.imageDashboard}
-          />
+          <Image alt="Yellow Graphs" src={DashboardGraphs} className={styles.imageDashboard}/>
         </div>
 
-        <div className={styles.filterRow}>
-          <div
-            className={styles.filterButton}
-            onClick={() => setShowFilters((prev) => !prev)}
-            style={{ cursor: "pointer" }}
-          >
-            <Icon icon="ion:filter" className={styles.filterIcon} />
+        <FilterRow selected={selected} setSelected={setSelected} />
+
+        <div className={styles.titleExercices}>{selected}</div>
+        
+        <div className={styles.graphsWrap}>
+
+          <div className={styles.graphContainer}>
+            <div className={styles.title}>Desempenho Semanal</div>
+            <div className={styles.subtitle}>Agachamento</div>
+            <div className={styles.graph}>
+              
+            </div>
           </div>
-          {showFilters && (
-            <>
-              <label
-                className={`${styles.filterButton} ${
-                  selected === "todos" ? styles.selectedFilter : ""
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="exercise"
-                  value="todos"
-                  checked={selected === "todos"}
-                  onChange={() => setSelected("todos")}
-                  style={{ display: "none" }}
-                />
-                Todos
-              </label>
-              <label
-                className={`${styles.filterButton} ${
-                  selected === "agachamento" ? styles.selectedFilter : ""
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="exercise"
-                  value="agachamento"
-                  checked={selected === "agachamento"}
-                  onChange={() => setSelected("agachamento")}
-                  style={{ display: "none" }}
-                />
-                Agachamento
-              </label>
-            </>
-          )}
+          <div className={styles.graphContainer}>
+            <div className={styles.title}>Ultimo Treino</div>
+            <div className={styles.subtitle}>Agachamento</div>
+            <div className={styles.graph}>
+              
+            </div>
+          </div>
+          <div className={styles.graphContainer}>
+            <div className={styles.title}>Comparativo Mensal</div>
+            <div className={styles.subtitle}>Agachamento</div>
+            <div className={styles.graph}>
+              
+            </div>
+          </div>
+
         </div>
+
       </div>
 
       <RightBoard />

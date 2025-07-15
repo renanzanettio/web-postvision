@@ -18,7 +18,7 @@ const streakDays = [
   new Date(2025, 6, 9),
   new Date(2025, 6, 11),
   new Date(2025, 6, 12),
-  new Date(2025, 1, 18),
+  new Date(2025, 6, 14),
 ];
 
 export default function StreakCalendar() {
