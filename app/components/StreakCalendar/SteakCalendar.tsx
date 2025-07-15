@@ -7,6 +7,7 @@ import { Icon } from '@iconify/react';
 import ptBR from 'date-fns/locale/pt-BR';
 
 const streakDays = [
+  // inicia o mês em 0
   new Date(2025, 5, 30),
   new Date(2025, 6, 1),
   new Date(2025, 6, 2),
@@ -17,6 +18,7 @@ const streakDays = [
   new Date(2025, 6, 9),
   new Date(2025, 6, 11),
   new Date(2025, 6, 12),
+  new Date(2025, 1, 18),
 ];
 
 export default function StreakCalendar() {
