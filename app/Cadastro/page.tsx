@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import styles from "./Cadastro.module.css";
-import Logo from "../../public/images/logo-purple.svg";
 import LogoGoogle from "../../public/images/logo-google.svg";
 import LogoMicrosoft from "../../public/images/logo-microsoft.svg";
 import Graphs1 from "../../public/images/graphs-1.svg";
