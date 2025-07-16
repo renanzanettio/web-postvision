@@ -1,6 +1,4 @@
 import styles from "./RightBoard.module.css";
-import { Icon } from "@iconify/react";
-import Menu from "../Menu/Menu";
 import StreakCalendar from "../StreakCalendar/SteakCalendar";
 import AverageRow from "../AverageRow/AverageRow";
 import StreakCounter from "../StreakCounter/StreakCounter";

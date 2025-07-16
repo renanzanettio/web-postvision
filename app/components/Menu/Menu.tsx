@@ -2,21 +2,22 @@
 import styles from './Menu.module.css';
 import { usePathname } from 'next/navigation';
 import { Icon } from '@iconify/react';
+import Link from 'next/link';
 
 export default function Menu() {
     const pathname = usePathname();
     return(
             <div className={styles.menuContainer}>
-                <a href="/" className={styles.titleMenu}>PostVision</a>
+                <Link href="/" className={styles.titleMenu}>PostVision</Link>
                 <div className={styles.menuLinks}>
-                    <a href="/Status" className={`${styles.link} ${pathname === '/Status' ? styles.active : ''}`}>
+                    <Link href="/Status" className={`${styles.link} ${pathname === '/Status' ? styles.active : ''}`}>
                     <Icon icon="gridicons:stats" className={styles.statsIcon} />Status
-                    </a>
-                    <a href="/Profile" className={`${styles.link} ${pathname === '/Profile' ? styles.active : ''}`}>
+                    </Link>
+                    <Link href="/Profile" className={`${styles.link} ${pathname === '/Profile' ? styles.active : ''}`}>
                     <Icon icon="iconamoon:profile-fill" className={styles.profileIcon}/>Profile
-                    </a>
+                    </Link>
                 </div>
-                <a href="/Entrar" className={styles.logoutContainer}><Icon icon="ri:logout-box-line" className={styles.logoutButton} /></a>
+                <Link href="/Entrar" className={styles.logoutContainer}><Icon icon="ri:logout-box-line" className={styles.logoutButton} /></Link>
             </div>
     )
 }

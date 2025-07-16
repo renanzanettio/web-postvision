@@ -8,6 +8,7 @@ import Graphs1 from "../../public/images/graphs-1.svg";
 import Graphs2 from "../../public/images/graphs-2.svg";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Cadastro() {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +17,7 @@ export default function Cadastro() {
     <div className={styles.signUpContainer}>
       {/* Lado esquerdo */}
       <div className={styles.signUpWelcome}>
-        <a
+        <Link
           href="/"
           className={styles.backButton}
           title="Voltar para a página inicial"
@@ -34,7 +35,7 @@ export default function Cadastro() {
             className={styles.returnIcon}
           />
           <span>Voltar</span>
-        </a>
+        </Link>
 
         <Image
           alt="Grafos em formato de olho"
@@ -48,9 +49,7 @@ export default function Cadastro() {
         ></Image>
         <h1>Seja Bem-Vindo</h1>
         <p>
-          "PostVision é uma solução inteligente que usa visão computacional para
-          te ajudar a treinar com mais segurança. Corrija sua postura, evite
-          lesões e acompanhe sua evolução com tecnologia a favor da sua saúde."
+          PostVision é uma solução inteligente que usa visão computacional para te ajudar a treinar com mais segurança. Corrija sua postura, evite lesões e acompanhe sua evolução com tecnologia a favor da sua saúde.
         </p>
       </div>
 

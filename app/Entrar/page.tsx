@@ -7,7 +7,7 @@ import LogoGoogle from '../../public/images/logo-google.svg';
 import LogoMicrosoft from '../../public/images/logo-microsoft.svg';
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
-
+import Link from 'next/link';
 
 export default function Entrar() {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,16 +17,16 @@ export default function Entrar() {
       {/* Lado esquerdo */}
       <div className={styles.loginWelcome}>
 
-        <a href="/" className={styles.backButton} title="Voltar para a página inicial" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+        <Link href="/" className={styles.backButton} title="Voltar para a página inicial" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
           <Icon icon="mdi:arrow-left" width={24} height={24} className={styles.returnIcon} />
           <span>Voltar</span>
-        </a>
+        </Link>
 
         <Image alt='Grafos em formato de olho' src={Graphs1} className={styles.loginCircles} />
         <Image alt='Grafos em formato de olho' src={Graphs2} className={styles.loginCirclesBottom} />
         <h1>Seja Bem-Vindo</h1>
         <p>
-          "PostVision é uma solução inteligente que usa visão computacional para te ajudar a treinar com mais segurança. Corrija sua postura, evite lesões e acompanhe sua evolução com tecnologia a favor da sua saúde."
+          PostVision é uma solução inteligente que usa visão computacional para te ajudar a treinar com mais segurança. Corrija sua postura, evite lesões e acompanhe sua evolução com tecnologia a favor da sua saúde.
         </p>
       </div>
 

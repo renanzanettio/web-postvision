@@ -2,8 +2,6 @@
 import styles from './StreakCalendar.module.css';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import { useState } from 'react';
-import { Icon } from '@iconify/react';
 import ptBR from 'date-fns/locale/pt-BR';
 
 const streakDays = [
