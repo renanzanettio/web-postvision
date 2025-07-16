@@ -3,7 +3,12 @@ import styles from "./FilterRow.module.css";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 
-export default function FilterRow({selected, setSelected}) {
+type FilterRowProps = {
+  selected: string;
+  setSelected: (value: string) => void;
+};
+
+export default function FilterRow({selected, setSelected}: FilterRowProps) {
 
   const [showFilters, setShowFilters] = useState(true);
 
