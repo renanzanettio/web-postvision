@@ -7,6 +7,8 @@ import RightBoard from "../components/RightBoard/RightBoard";
 import DashboardGraphs from "../../public/images/dashboard-graphs.svg";
 import { useState } from "react";
 import FilterRow from "../components/FilterRow/FilterRow";
+import WeeklyPerformanceChart from "../components/WeeklyPerformanceChart/WeeklyPerformanceChart";
+import LastTrainingChart from "../components/LastTrainingChart/LastTrainingChart";
 
 
 export default function Status() {
@@ -27,24 +29,15 @@ export default function Status() {
         
         <div className={styles.graphsWrap}>
 
-          <div className={styles.graphContainer}>
-            <div className={styles.title}>Desempenho Semanal</div>
-            <div className={styles.subtitle}>Agachamento</div>
-            <div className={styles.graph}>
-              
-            </div>
-          </div>
-          <div className={styles.graphContainer}>
-            <div className={styles.title}>Ultimo Treino</div>
-            <div className={styles.subtitle}>Agachamento</div>
-            <div className={styles.graph}>
-              
-            </div>
-          </div>
+          <WeeklyPerformanceChart />
+
+          <LastTrainingChart />
+
+
           <div className={styles.graphContainer}>
             <div className={styles.title}>Comparativo Mensal</div>
             <div className={styles.subtitle}>Agachamento</div>
-            <div className={styles.graph}>
+            <div className={styles.chart}>
               
             </div>
           </div>
