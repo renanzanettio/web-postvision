@@ -90,3 +90,20 @@
     justify-content: center;
     gap: 0.1rem;
 }
+
+@media (max-width: 600px) {
+    .appStatusRow {
+        padding-left: 56px;
+        margin-top: -11px;
+    }
+
+    .notificationIcon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .settingsIcon {
+        width: 32px;
+        height: 32px;
+    }
+}

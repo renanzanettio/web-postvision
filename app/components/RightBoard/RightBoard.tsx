@@ -7,15 +7,10 @@ import AppStatusRow from "../AppStatusRow/AppStatusRow";
 export default function RightBoard() {
   return (
     <div className={styles.rightBoard}>
-
-      <AppStatusRow />
-
+      <AppStatusRow/>
       <StreakCounter />
-
       <AverageRow />
-
       <StreakCalendar />
-
     </div>
   );
 }

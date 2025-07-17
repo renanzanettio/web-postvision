@@ -2,7 +2,7 @@
   padding: 1rem 1.5rem;
   width: fit-content;
   width: 45%;
-  min-width: 400px;
+  min-width: 520px;
   min-height: 350px;
   max-height: 350px;
   background-color: var(--white);
@@ -38,4 +38,12 @@
   color: #1b0066;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .graphContainer {
+    width: 90% !important;
+    transform: scale(0.8) translateX(-13%);
+    margin-top: -50px;
+  }
 }

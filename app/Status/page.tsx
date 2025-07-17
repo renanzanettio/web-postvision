@@ -18,6 +18,7 @@ export default function Status() {
     <div className={styles.statusContainer}>
       <Menu />
 
+      <div className={styles.reverseContainer}>
       <div className={styles.mainContainer}>
         <div className={styles.dashboardContainer}>
           <Image alt="Yellow Graphs" src={DashboardGraphs} className={styles.imageDashboard}/>
@@ -40,7 +41,7 @@ export default function Status() {
 
       </div>
 
-      <RightBoard />
+      <RightBoard /></div>
     </div>
   );
 }

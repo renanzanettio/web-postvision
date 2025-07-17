@@ -78,3 +78,40 @@
   }
 
 }
+
+.reverseContainer {
+  display: flex;
+}
+
+@media (max-width: 600px) {
+
+  .mainContainer {
+    margin-left: 0;
+    width: calc(100% - 1rem);
+    padding-inline: 1rem;
+  }
+
+  .statusContainer {
+    flex-direction: column;
+    height: fit-content !important;
+    padding-bottom: 2rem;
+  }
+
+  .dashboardContainer {
+    display: none;
+  }
+
+  .reverseContainer {
+    display: flex;
+    flex-direction: column-reverse !important;
+  }
+
+  .graphsWrap {
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  
+}
