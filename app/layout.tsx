@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./styles/globals.css";
+import ClientLayout from "./components/ClientLayout";
 
 const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'], // adicione os pesos que for usar
-  variable: '--font-montserrat', // nome da variável CSS
-  display: 'swap', // opcional, melhora performance
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-montserrat', 
+  display: 'swap',
 })
 
 const geistSans = Geist({
@@ -34,7 +35,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}
       >
-        {children}
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );
