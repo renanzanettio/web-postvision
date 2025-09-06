@@ -9,6 +9,7 @@
     min-width: 350px;
     border-radius: 10px;
     gap: 1rem;
+
 }
 
 @media (max-width: 600px) {

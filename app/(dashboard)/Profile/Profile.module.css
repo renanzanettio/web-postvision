@@ -1,4 +1,4 @@
-.statusContainer {
+.profileContainer {
   display: flex;
   flex-direction: row;
   height: 100vh;
@@ -12,7 +12,7 @@
   margin-left: 192px;
   width: calc(94% - 542px); /* 192px do menu e 350px do rightboard */ 
   height: 100%;
-  padding: 24px;
+  padding: 24px;  
   align-items: center;
   gap: 2rem;
   overflow-y: scroll;
