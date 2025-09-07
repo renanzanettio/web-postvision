@@ -6,17 +6,17 @@ import { ptBR } from 'date-fns/locale/pt-BR';
 
 const streakDays = [
   // inicia o mês em 0
-  new Date(2025, 5, 30),
-  new Date(2025, 6, 1),
-  new Date(2025, 6, 2),
-  new Date(2025, 6, 4),
-  new Date(2025, 6, 5),
-  new Date(2025, 6, 7),
-  new Date(2025, 6, 8),
-  new Date(2025, 6, 9),
-  new Date(2025, 6, 11),
-  new Date(2025, 6, 12),
-  new Date(2025, 6, 14),
+  new Date(2025, 7, 31),
+  new Date(2025, 8, 1),
+  new Date(2025, 8, 2),
+  new Date(2025, 8, 4),
+  new Date(2025, 8, 5),
+  new Date(2025, 8, 7),
+  new Date(2025, 8, 8),
+  new Date(2025, 8, 9),
+  new Date(2025, 8, 11),
+  new Date(2025, 8, 12),
+  new Date(2025, 8, 14),
 ];
 
 export default function StreakCalendar() {

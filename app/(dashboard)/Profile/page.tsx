@@ -15,31 +15,15 @@ export default function Profile() {
 
   return (
     <div className={styles.profileContainer}>
-
+      <div className={styles.reverseContainer}>
         <div className={styles.mainContainer}>
-          <div className={styles.dashboardContainer}>
-            <Image
-              alt="Yellow Graphs"
-              src={DashboardGraphs}
-              className={styles.imageDashboard}
-            />
-          </div>
 
-          <FilterRow selected={selected} setSelected={setSelected} />
+          
 
-          <div className={styles.titleExercices}>{selected}</div>
-
-          <div className={styles.graphsWrap}>
-            <WeeklyPerformanceChart />
-
-            <LastTrainingChart />
-
-            <MonthlyComparisionChart />
-          </div>
         </div>
+      </div>
 
-        <RightBoard />
-
+      <RightBoard />
     </div>
   );
 }
