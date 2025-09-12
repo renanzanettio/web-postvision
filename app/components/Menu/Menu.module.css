@@ -9,6 +9,7 @@
   align-items: center;
   flex-direction: column;
   padding: 1.5rem 1rem;
+  z-index: 1000;
   
   & .titleMenu {
     font-size: 1.7rem;

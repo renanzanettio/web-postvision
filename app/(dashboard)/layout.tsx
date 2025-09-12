@@ -10,7 +10,7 @@ const montserrat = Montserrat({
   weight: ['400', '500', '600', '700'],
   variable: '--font-montserrat', 
   display: 'swap',
-})
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,14 +33,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-
-      
+    <html lang="pt-br" className={`${montserrat.variable} ${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <ClientLayout>
           <Menu />
           {children}
-
         </ClientLayout>
-
-
+      </body>
+    </html>
   );
 }

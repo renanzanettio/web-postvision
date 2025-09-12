@@ -9,6 +9,7 @@
     min-width: 350px;
     border-radius: 10px;
     gap: 1rem;
+    z-index: 1000;
 
 }
 

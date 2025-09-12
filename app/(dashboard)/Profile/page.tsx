@@ -14,12 +14,10 @@ export default function Profile() {
   const [selected, setSelected] = useState("Todos");
 
   return (
-    <div className={styles.profileContainer}>
-      <div className={styles.reverseContainer}>
-        <div className={styles.mainContainer}>
-
+    <div className={styles.reverseContainer}>
+      <div className={styles.mainContainer}>
+        <div className={styles.profileContainer}>
           
-
         </div>
       </div>
 
