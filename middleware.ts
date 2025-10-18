@@ -1,43 +1,30 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import { NextRequest, NextResponse } from 'next/server';
 
-const SECRET = process.env.JWT_SECRET || "segredo";
+const protectedRoutes = ['/Status', '/Profile', '/Settings'];
 
-export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
 
-  // Permitir acesso livre às rotas públicas e de API de login/cadastro
-  if (
-    pathname.startsWith("/public") ||
-    pathname.startsWith("/api/login") ||
-    pathname.startsWith("/api/cadastro")
-  ) {
-    return NextResponse.next();
-  }
+  console.log("rodou aqui");
 
-  // Bloquear /dashboard sem token
-  if (pathname.startsWith("/dashboard")) {
-    const authHeader = req.headers.get("authorization");
+  const testesoma = 2;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return NextResponse.redirect(new URL("/public", req.url));
-    }
-
-    const token = authHeader.split(" ")[1];
-
-    try {
-      jwt.verify(token, SECRET);
-      return NextResponse.next(); // Token válido → libera
-    } catch {
-      return NextResponse.redirect(new URL("/public", req.url)); // Token inválido
+  // Verifica se a rota é protegida
+  if (protectedRoutes.some(route => pathname.startsWith(route))) {
+    const token = request.cookies.get('token');
+    // Se não estiver logado, redireciona para /login
+    if (!token) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = '/Entrar';
+      return NextResponse.redirect(loginUrl);
     }
   }
 
+  // Permite acesso normalmente
   return NextResponse.next();
 }
 
-// Aplica o middleware apenas nessas rotas
+// Opcional: define quais rotas o middleware deve monitorar
 export const config = {
-  matcher: ["/dashboard/:path*", "/api/:path*"],
+  matcher: ['/Status', '/Profile', '/Settings'],
 };
