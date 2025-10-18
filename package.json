@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "postinstall": "prisma generate",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -11,14 +12,15 @@
   "dependencies": {
     "@iconify/react": "^6.0.0",
     "@prisma/client": "^6.17.1",
+    "@types/jsonwebtoken": "^9.0.5",
     "bcryptjs": "^3.0.2",
+    "jose": "^6.1.0",
     "jsonwebtoken": "^9.0.2",
     "next": "15.3.5",
     "prisma": "^6.17.1",
     "react": "^18.3.1",
     "react-day-picker": "^9.8.0",
     "react-dom": "^18.3.1",
-    "@types/jsonwebtoken": "^9.0.5",
     "recharts": "^3.1.0"
   },
   "devDependencies": {

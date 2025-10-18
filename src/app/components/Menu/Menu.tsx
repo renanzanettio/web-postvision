@@ -4,8 +4,27 @@ import { usePathname } from 'next/navigation';
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Menu() {
+    const router = useRouter();
+
+    async function handleLogOut() {
+        try {
+            await fetch('/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include', // garante que o cookie seja enviado
+        });
+
+        // redireciona para a pagina de login após o logout
+        router.push('/Entrar');
+        } catch (err) {
+            console.error('Erro ao fazer logout:', err);
+            alert('Erro ao fazer logout. Tente novamente.');
+        }
+
+    }
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const pathname = usePathname();
@@ -27,7 +46,7 @@ export default function Menu() {
                     <Icon icon="iconamoon:profile-fill" className={styles.profileIcon}/>Profile
                     </Link>
                 </div>
-                <Link href="/Entrar" className={styles.logoutContainer}><Icon icon="ri:logout-box-line" className={styles.logoutButton} /></Link>
+                <button onClick={handleLogOut} className={styles.logoutContainer}><Icon icon="ri:logout-box-line" className={styles.logoutButton} /></button>
             </div>
         </div>
     )

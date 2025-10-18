@@ -34,15 +34,28 @@ export async function POST(req: Request) {
       { expiresIn: "7d" }
     );
 
-    return NextResponse.json({
+    // Criar resposta JSON
+    const response = NextResponse.json({
       message: "Login bem-sucedido",
-      token,
       usuario: {
         id_usuario: usuario.id_usuario,
         nome_usuario: usuario.nome_usuario,
         email_usuario: usuario.email_usuario,
       },
     });
+
+    // Adicionar cookie ao response
+    response.cookies.set({
+      name: "token",
+      value: token,
+      httpOnly: true,        // impede acesso via JS
+      path: "/",             // cookie disponível em todo site
+      maxAge: 60 * 60 * 24 * 7, // 7 dias
+      sameSite: "strict",    // segurança
+      secure: process.env.NODE_ENV === "production", // só HTTPS em produção
+    });
+
+    return response;
   } catch (err) {
     console.error("Erro no login:", err);
     return NextResponse.json({ error: "Erro no servidor" }, { status: 500 });

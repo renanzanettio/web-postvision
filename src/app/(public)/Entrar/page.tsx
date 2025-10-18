@@ -17,7 +17,6 @@ export default function Entrar() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // 👇 Função que envia o login pra API
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -30,6 +29,7 @@ export default function Entrar() {
           email_usuario: email,
           senha_usuario: senha,
         }),
+        credentials: "include", // ✅ permite que o navegador aceite cookies
       });
 
       const data = await res.json();
@@ -40,11 +40,11 @@ export default function Entrar() {
         return;
       }
 
-      // ✅ Guarda o token no localStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("usuario", JSON.stringify(data.usuario));
+      // Não precisamos mais guardar o token no localStorage
+      // localStorage.setItem("token", data.token);
+      localStorage.setItem("usuario", JSON.stringify(data.usuario)); // só dados do usuário
 
-      // ✅ Redireciona pro dashboard
+      // Redireciona para a página protegida
       router.push("/Status");
     } catch (err) {
       console.error("Erro no login:", err);

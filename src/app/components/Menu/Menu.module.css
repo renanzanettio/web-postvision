@@ -67,6 +67,7 @@
   & .logoutContainer {
     align-self: flex-end;
     margin-right: 1.5rem;
+    cursor: pointer;
   }
 
   & .logoutButton {
