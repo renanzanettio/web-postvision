@@ -14,22 +14,66 @@ import { da } from "react-day-picker/locale";
 import { useUser } from "../UserContext";
 
 export default function Profile() {
-
   const usuario = useUser();
 
   const [selected, setSelected] = useState("Todos");
 
+  // FORMATA A DARA PARA O FORMATO BRASILEIRO
+  function formatDateToBr(dateInput: string | Date | undefined): string {
+    if (!dateInput) return "Informação não encontrada";
+
+    const date =
+      typeof dateInput === "string" ? new Date(dateInput) : dateInput;
+
+    if (isNaN(date.getTime())) return "Informação não encontrada";
+
+    return date.toLocaleDateString("pt-BR");
+  }
+
+  // FORMATA O CPF PARA O FORMATO XXX.XXX.XXX-XX
+  function formatCpf(cpfInput: string | undefined): string {
+    if (!cpfInput) return "Informação não encontrada";
+
+    // Remove tudo que não for número
+    const onlyDigits = cpfInput.replace(/\D/g, "");
+
+    // Verifica se tem 11 dígitos
+    if (onlyDigits.length !== 11) return "CPF inválido";
+
+    // Formata
+    return onlyDigits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  }
+
+  // FORMATA O TELEFONE PARA O FORMATO (XX) XXXXX-XXXX OU (XX) XXXX-XXXX
+  function formatPhone(phoneInput: string | undefined): string {
+    if (!phoneInput) return "Informação não encontrada";
+
+    // Remove tudo que não for número
+    const onlyDigits = phoneInput.replace(/\D/g, "");
+
+    // Telefone brasileiro deve ter 10 ou 11 dígitos (DDD + número)
+    if (onlyDigits.length === 10) {
+      // formato fixo: (XX) XXXX-XXXX
+      return onlyDigits.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+    } else if (onlyDigits.length === 11) {
+      // formato celular: (XX) XXXXX-XXXX
+      return onlyDigits.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+    } else {
+      return "Telefone inválido";
+    }
+  }
+
   const profileData = {
     name: usuario?.nome_usuario || "Informação não encontrada",
     sobrenome: usuario?.sobrenome_usuario || "Informação não encontrada",
-    cpf: usuario?.cpf_usuario || "Informação não encontrada",
+    cpf: formatCpf(usuario?.cpf_usuario) || "Informação não encontrada",
     genero: usuario?.genero_usuario || "Informação não encontrada",
-    dataNascimento: usuario?.data_nascimento_usuario || "Informação não encontrada",
+    dataNascimento: formatDateToBr(usuario?.data_nascimento_usuario),
   };
 
   const securityData = {
-    telefone: "(13) 91234-5678",
-    email: "Carlos@gmail.com",
+    telefone: formatPhone(usuario?.telefone_usuario) || "Informação não encontrada",
+    email: usuario?.email_usuario || "Informação não encontrada",
   };
 
   return (
@@ -45,8 +89,8 @@ export default function Profile() {
               />
             </div>
             <div className={styles.textDivision}>
-              <span className={styles.name}>Carlos Silva</span>
-              <span className={styles.email}>Carlos@gmail.com</span>
+              <span className={styles.name}>{usuario?.nome_usuario} {usuario?.sobrenome_usuario}</span>
+              <span className={styles.email}>{usuario?.email_usuario}</span>
             </div>
           </div>
           <div className={styles.contentContainer}>
@@ -87,7 +131,8 @@ export default function Profile() {
                         .slice(1)
                         .replace(/([A-Z])/g, " $1")
                         .replace("telefone", "Telefone")
-                        .replace("email", "Email") + ":"}
+                        .replace("email", "Email") +
+                      ":"}
                   </div>
                   <div className={styles.value}>{value}</div>
                 </div>

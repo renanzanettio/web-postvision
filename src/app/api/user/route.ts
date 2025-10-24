@@ -26,6 +26,7 @@ export async function GET(req: Request) {
       select: {
         id_usuario: true,
         nome_usuario: true,
+        cpf_usuario: true,
         sobrenome_usuario: true,
         email_usuario: true,
         telefone_usuario: true,
