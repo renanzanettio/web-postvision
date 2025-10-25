@@ -7,12 +7,15 @@ import { useUser } from "../../(dashboard)/UserContext";
 import Image from "next/image";
 import ProfileIcon from "@/public/images/carlos.png";
 
-
 export default function AppStatusRow() {
   const pathname = usePathname();
 
   const usuario = useUser();
-  const userName = usuario?.nome_usuario + " " + usuario?.sobrenome_usuario || "Usuário";
+  let lastName = usuario?.sobrenome_usuario.split(" ").pop();
+  if (usuario?.nome_usuario != undefined && lastName != undefined && (usuario?.nome_usuario.length + lastName.length) > 19) {
+    lastName = lastName?.charAt(0) + ".";
+  }
+  const userName = usuario?.nome_usuario + " " + lastName|| "Usuário";
 
   return (
     <div className={styles.appStatusRow}>
@@ -42,7 +45,7 @@ export default function AppStatusRow() {
           </div>
         </div>
         <div className={styles.profileContainer}>
-          <Image src={ProfileIcon} className={styles.profileIcon}/>
+          <Image src={ProfileIcon} className={styles.profileIcon} alt="imagem de perfil do Usuário"/>
         </div>
       </div>
     </div>
