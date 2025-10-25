@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useUser } from "../../(dashboard)/UserContext";
 import Image from "next/image";
 import ProfileIcon from "@/public/images/carlos.png";
+import { use, useEffect, useState } from "react";
 
 export default function AppStatusRow() {
   const pathname = usePathname();
@@ -17,16 +18,31 @@ export default function AppStatusRow() {
   }
   const userName = usuario?.nome_usuario + " " + lastName|| "Usuário";
 
+  const [notificationOpen, setNotificationOpen] = useState(false);
+
+
+
+
   return (
     <div className={styles.appStatusRow}>
       <div className={styles.leftAppStatus}>
-        <div className={styles.notificationContainer}>
+        <div className={styles.notificationContainer} onClick={() => setNotificationOpen(!notificationOpen)}>
           <Icon
             icon="mingcute:notification-fill"
             className={styles.notificationIcon}
           />
           <div className={styles.notificationDot}></div>
         </div>
+        
+        {notificationOpen && (
+          <div className={styles.notificationDropdown}>
+            <div className={styles.notificationHeader}>Notificações</div>
+            <div className={styles.notificationItem}>
+              Sua Streak de 24 dias está em perigo! Faça um treino hoje para salvá-la!
+            </div>
+          </div>
+        )}
+
         <Link href="/Settings">
           <Icon
             icon="material-symbols:settings-rounded"

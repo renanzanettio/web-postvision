@@ -7,7 +7,7 @@ export default function StreakCounter() {
       <div className={styles.streakCounterContainer}>
         <Icon icon="bi:fire" className={styles.streakIcon}></Icon>
         <div className={styles.hole}></div>
-        <div className={styles.streakCounter}>7</div>
+        <div className={styles.streakCounter}>24</div>
       </div>
       <div className={styles.streakTexts}>
         <div className={styles.streakTitle}>Streak</div>

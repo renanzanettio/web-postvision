@@ -55,9 +55,9 @@
 }
 
 .todayDay {
-  outline: 2px dashed var(--secundary-purple-600) !important;
+  outline: 2px dashed var(--highlight-yellow-500) !important;
   border-radius: 10px !important;
-  outline-offset: -3.5px !important;
+  outline-offset: -5px !important;
 }
 
 .weekendDay {
