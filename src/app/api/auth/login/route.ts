@@ -1,63 +1,57 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { connectDB } from "@/lib/mongoose";
+import User from "@/lib/models/User";
 
-const prisma = new PrismaClient();
-const SECRET = process.env.JWT_SECRET || "segredo";
+const SECRET = process.env.JWT_SECRET!;
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { email_usuario, senha_usuario } = body;
+    await connectDB();
 
-    if (!email_usuario || !senha_usuario) {
-      return NextResponse.json({ error: "Campos obrigatórios" }, { status: 400 });
-    }
+    const { userEmail, userPassword } = await req.json();
 
-    const usuario = await prisma.usuarios.findUnique({
-      where: { email_usuario },
-    });
+    const user = await User.findOne({ email: userEmail });
 
-    if (!usuario) {
+    if (!user) {
       return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
     }
 
-    const senhaCorreta = await bcrypt.compare(senha_usuario, usuario.senha_usuario);
+    const senhaCorreta = await bcrypt.compare(userPassword, user.password);
+
     if (!senhaCorreta) {
       return NextResponse.json({ error: "Senha incorreta" }, { status: 401 });
     }
 
     const token = jwt.sign(
-      { id: usuario.id_usuario, email: usuario.email_usuario },
+      { id: user._id.toString(), email: user.email },
       SECRET,
       { expiresIn: "7d" }
     );
 
-    // Criar resposta JSON
     const response = NextResponse.json({
       message: "Login bem-sucedido",
       usuario: {
-        id_usuario: usuario.id_usuario,
-        nome_usuario: usuario.nome_usuario,
-        email_usuario: usuario.email_usuario,
+        id_usuario: user._id.toString(),
+        nome_usuario: user.firstName,
+        email_usuario: user.email,
       },
     });
 
-    // Adicionar cookie ao response
     response.cookies.set({
       name: "token",
       value: token,
-      httpOnly: true,        // impede acesso via JS
-      path: "/",             // cookie disponível em todo site
+      httpOnly: true,
+      path: "/",
       maxAge: 60 * 60 * 24 * 7, // 7 dias
-      sameSite: "strict",    // segurança
-      secure: process.env.NODE_ENV === "production", // só HTTPS em produção
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
     });
 
     return response;
   } catch (err) {
-    console.error("Erro no login:", err);
+    console.error(err);
     return NextResponse.json({ error: "Erro no servidor" }, { status: 500 });
   }
 }

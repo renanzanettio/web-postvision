@@ -1,8 +1,7 @@
 "use client";
 import styles from "./Status.module.css";
-import Menu from "../../components/Menu/Menu";
 import RightBoard from "../../components/RightBoard/RightBoard";
-import DashboardGraphs from "@/public/images/dashboard-graphs.svg";
+import DashboardGraphs from "@/../public/images/dashboard-graphs.svg";
 import { useState } from "react";
 import FilterRow from "../../components/FilterRow/FilterRow";
 import WeeklyPerformanceChart from "../../components/WeeklyPerformanceChart/WeeklyPerformanceChart";

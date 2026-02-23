@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import styles from "./Cadastro.module.css";
-import LogoGoogle from "@/public/images/logo-google.svg";
-import LogoMicrosoft from "@/public/images/logo-microsoft.svg";
-import Graphs1 from "@/public/images/graphs-1.svg";
-import Graphs2 from "@/public/images/graphs-2.svg";
+import LogoGoogle from "@/../public/images/logo-google.svg";
+import LogoMicrosoft from "@/../public/images/logo-microsoft.svg";
+import Graphs1 from "@/../public/images/graphs-1.svg";
+import Graphs2 from "@/../public/images/graphs-2.svg";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import Link from "next/link";
@@ -16,14 +16,14 @@ export default function Cadastro() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
-    nome: "",
-    sobrenome: "",
-    nascimento: "",
-    genero: "",
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+    gender: "",
     cpf: "",
     email: "",
-    telefone: "",
-    senha: "",
+    phone: "",
+    password: "",
   });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -35,8 +35,8 @@ export default function Cadastro() {
     setLoading(true);
 
     // Validação básica
-    const { nome, sobrenome, nascimento, genero, cpf, email, telefone, senha } = formData;
-    if (!nome || !sobrenome || !nascimento || !genero || !cpf || !email || !telefone || !senha) {
+    const { firstName, lastName, birthDate, gender, cpf, email, phone, password } = formData;
+    if (!firstName || !lastName || !birthDate || !gender || !cpf || !email || !phone || !password) {
       alert("Todos os campos são obrigatórios!");
       setLoading(false);
       return;
@@ -97,25 +97,25 @@ export default function Cadastro() {
           {/* Nome e Sobrenome */}
           <div className={styles.signUpRow}>
             <div className={styles.signUpInputGroup}>
-              <label htmlFor="nome">Nome</label>
-              <input id="nome" type="text" placeholder="Nome" value={formData.nome} onChange={handleChange} />
+              <label htmlFor="firstName">Nome</label>
+              <input id="firstName" type="text" placeholder="Nome" value={formData.firstName} onChange={handleChange} />
             </div>
             <div className={styles.signUpInputGroup}>
-              <label htmlFor="sobrenome">Sobrenome</label>
-              <input id="sobrenome" type="text" placeholder="Sobrenome" value={formData.sobrenome} onChange={handleChange} />
+              <label htmlFor="lastName">Sobrenome</label>
+              <input id="lastName" type="text" placeholder="Sobrenome" value={formData.lastName} onChange={handleChange} />
             </div>
           </div>
 
           {/* Data de Nascimento, Gênero e CPF */}
           <div className={styles.signUpRow}>
             <div className={styles.signUpInputGroup}>
-              <label htmlFor="nascimento">Data de Nascimento</label>
-              <input id="nascimento" type="date" value={formData.nascimento} onChange={handleChange} />
+              <label htmlFor="birthDate">Data de Nascimento</label>
+              <input id="birthDate" type="date" value={formData.birthDate} onChange={handleChange} />
             </div>
 
             <div className={styles.signUpInputGroup}>
-              <label htmlFor="genero">Gênero</label>
-              <select id="genero" value={formData.genero} onChange={handleChange} className={`${styles.signUpInput} ${styles.signUpSelect}`}>
+              <label htmlFor="gender">Gênero</label>
+              <select id="gender" value={formData.gender} onChange={handleChange} className={`${styles.signUpInput} ${styles.signUpSelect}`}>
                 <option value="" disabled>Selecione</option>
                 <option value="Masculino">Masculino</option>
                 <option value="Feminino">Feminino</option>
@@ -137,22 +137,22 @@ export default function Cadastro() {
             </div>
 
             <div className={styles.signUpInputGroup}>
-              <label htmlFor="telefone">Telefone</label>
-              <input id="telefone" type="text" placeholder="13 997311644" value={formData.telefone} onChange={handleChange} />
+              <label htmlFor="phone">Telefone</label>
+              <input id="phone" type="text" placeholder="13 997311644" value={formData.phone} onChange={handleChange} />
             </div>
           </div>
 
           {/* Senha */}
           <div className={styles.signUpInputGroup}>
-            <label htmlFor="senha">Senha</label>
+            <label htmlFor="password">Senha</label>
             <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
               <input
-                id="senha"
+                id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="************"
                 className={styles.loginInput}
                 style={{ width: "100%" }}
-                value={formData.senha}
+                value={formData.password}
                 onChange={handleChange}
               />
               <button

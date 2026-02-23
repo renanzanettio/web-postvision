@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import styles from "./Entrar.module.css";
-import Graphs1 from "@/public/images/graphs-1.svg";
-import Graphs2 from "@/public/images/graphs-2.svg";
-import LogoGoogle from "@/public/images/logo-google.svg";
-import LogoMicrosoft from "@/public/images/logo-microsoft.svg";
+import Graphs1 from "@/../public/images/graphs-1.svg";
+import Graphs2 from "@/../public/images/graphs-2.svg";
+import LogoGoogle from "@/../public/images/logo-google.svg";
+import LogoMicrosoft from "@/../public/images/logo-microsoft.svg";
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 export default function Entrar() {
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -26,10 +26,10 @@ export default function Entrar() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email_usuario: email,
-          senha_usuario: senha,
+          userEmail: email,
+          userPassword: password,
         }),
-        credentials: "include", // ✅ permite que o navegador aceite cookies
+        credentials: "include",
       });
 
       const data = await res.json();
@@ -40,7 +40,6 @@ export default function Entrar() {
         return;
       }
 
-      // Não precisamos mais guardar o token no localStorage
       // localStorage.setItem("token", data.token);
       localStorage.setItem("usuario", JSON.stringify(data.usuario)); // só dados do usuário
 
@@ -93,14 +92,14 @@ export default function Entrar() {
           </div>
 
           <div className={styles.loginInputGroup}>
-            <label htmlFor="senha">Senha</label>
+            <label htmlFor="password">Senha</label>
             <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
               <input
-                id="senha"
+                id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="************"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className={styles.loginInput}
                 style={{ width: "100%" }}
               />

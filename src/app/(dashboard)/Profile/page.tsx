@@ -1,7 +1,7 @@
 "use client";
 import styles from "./Profile.module.css";
 import RightBoard from "../../components/RightBoard/RightBoard";
-import ProfileIcon from "@/public/images/profile.svg";
+import ProfileIcon from "@/../public/images/profile.svg";
 import { useState } from "react";
 import Image from "next/image";
 import { Icon } from "@iconify/react";

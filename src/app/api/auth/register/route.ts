@@ -1,72 +1,54 @@
-// src/app/api/auth/register/route.ts
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
+import { connectDB } from "@/lib/mongoose";
+import User from "@/lib/models/User";
 
 export async function POST(req: Request) {
   try {
+    await connectDB();
+
     const {
-      nome,
-      sobrenome,
+      firstName,
+      lastName,
       email,
-      senha,
-      nascimento,
-      genero,
+      password,
+      gender,
       cpf,
-      telefone,
+      phone,
+      birthDate,
     } = await req.json();
 
-    // Verificação básica
-    if (!nome || !sobrenome || !email || !senha || !nascimento || !genero || !cpf || !telefone) {
-      return NextResponse.json(
-        { error: "Todos os campos são obrigatórios!" },
-        { status: 400 }
-      );
-    }
-
-    // Verifica se o email já está cadastrado
-    const usuarioExistente = await prisma.usuarios.findUnique({
-      where: { email_usuario: email },
-    });
+    const usuarioExistente = await User.findOne({ email });
 
     if (usuarioExistente) {
-      return NextResponse.json(
-        { error: "E-mail já cadastrado!" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "E-mail já cadastrado!" }, { status: 400 });
     }
 
-    // Criptografa a senha
-    const senhaHash = await bcrypt.hash(senha, 10);
+    const hashPassword = await bcrypt.hash(password, 10);
 
-    // Cria o usuário
-    const novoUsuario = await prisma.usuarios.create({
-      data: {
-        nome_usuario: nome,
-        sobrenome_usuario: sobrenome,
-        email_usuario: email,
-        senha_usuario: senhaHash,
-        data_nascimento_usuario: new Date(nascimento),
-        genero_usuario: genero,
-        cpf_usuario: cpf,
-        telefone_usuario: telefone,
-        created_at_usuario: new Date(), // data atual
-      },
+    const novoUsuario = await User.create({
+      firstName,
+      lastName,
+      email,
+      password : hashPassword,
+      gender,
+      cpf,
+      phone,
+      birthDate: birthDate,
     });
 
     return NextResponse.json({
       message: "Usuário criado com sucesso!",
       usuario: {
-        id_usuario: novoUsuario.id_usuario,
-        nome_usuario: novoUsuario.nome_usuario,
-        sobrenome_usuario: novoUsuario.sobrenome_usuario,
-        email_usuario: novoUsuario.email_usuario,
+        id_usuario: novoUsuario._id.toString(),
+        nome_usuario: novoUsuario.firstName,
+        sobrenome_usuario: novoUsuario.lastName,
+        email_usuario: novoUsuario.email,
+        data_nascimento_usuario: novoUsuario.birthDate,
       },
     });
   } catch (err) {
-    console.error("Erro no cadastro:", err);
+    console.error(err);
     return NextResponse.json({ error: "Erro no servidor" }, { status: 500 });
   }
 }

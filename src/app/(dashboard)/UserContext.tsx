@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
 interface Usuario {
-  id_usuario: number;
+  id_usuario: string;
   nome_usuario: string;
   cpf_usuario?: string;
   sobrenome_usuario: string;
