@@ -70,6 +70,20 @@ function validarCPF(cpf: string) {
   return resto === parseInt(cpf.substring(10, 11));
 }
 
+function calcularIdade(dataNascimento: string) {
+  const hoje = new Date();
+  const nascimento = new Date(dataNascimento);
+
+  let idade = hoje.getFullYear() - nascimento.getFullYear();
+  const mes = hoje.getMonth() - nascimento.getMonth();
+
+  if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+    idade--;
+  }
+
+  return idade;
+}
+
 /* ---------------- COMPONENTE ---------------- */
 
 export default function Cadastro() {
@@ -106,6 +120,14 @@ export default function Cadastro() {
 
     if (!firstName || !lastName || !birthDate || !gender || !cpf || !email || !phone || !password) {
       alert("Todos os campos são obrigatórios!");
+      setLoading(false);
+      return;
+    }
+
+    const idade = calcularIdade(birthDate);
+
+    if (idade < 13) {
+      alert("Você precisa ter pelo menos 13 anos para se cadastrar.");
       setLoading(false);
       return;
     }
@@ -201,7 +223,13 @@ export default function Cadastro() {
 
             <div className={styles.signUpInputGroup}>
               <label htmlFor="birthDate">Data de Nascimento</label>
-              <input id="birthDate" type="date" value={formData.birthDate} onChange={handleChange} />
+              <input
+                id="birthDate"
+                type="date"
+                max={new Date(new Date().setFullYear(new Date().getFullYear() - 13)).toISOString().split("T")[0]}
+                value={formData.birthDate}
+                onChange={handleChange}
+              />
             </div>
 
             <div className={styles.signUpInputGroup}>
