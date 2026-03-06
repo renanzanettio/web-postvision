@@ -22,11 +22,11 @@ export async function POST(req: Request) {
     const phoneExists = await User.findOne({ phone });
 
     if (emailExists) {
-      return NextResponse.json({ error: "E-mail já cadastrado!" }, { status: 400 });
+      return NextResponse.json({ error: "O e-mail já está cadastrado! Faça login." }, { status: 400 });
     }
 
     if (phoneExists) {
-      return NextResponse.json({ error: "Telefone já cadastrado!" }, { status: 400 });
+      return NextResponse.json({ error: "O telefone já está cadastrado! Faça login." }, { status: 400 });
     }
 
     const hashPassword = await bcrypt.hash(password, 10);

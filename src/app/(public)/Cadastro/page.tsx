@@ -10,6 +10,68 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+// Funções de formatação e validação
+
+function formatName(value: string) {
+  return value.replace(/[0-9]/g, "");
+}
+
+function onlyNumbers(value: string) {
+  return value.replace(/\D/g, "");
+}
+
+function formatCPF(value: string) {
+  value = value.replace(/\D/g, "");
+  value = value.replace(/(\d{3})(\d)/, "$1.$2");
+  value = value.replace(/(\d{3})(\d)/, "$1.$2");
+  value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  return value;
+}
+
+function formatPhone(value: string) {
+  value = value.replace(/\D/g, "");
+
+  if (value.length <= 10) {
+    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+    value = value.replace(/(\d{4})(\d)/, "$1-$2");
+  } else {
+    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+    value = value.replace(/(\d{5})(\d)/, "$1-$2");
+  }
+
+  return value;
+}
+
+function validarCPF(cpf: string) {
+  if (cpf.length !== 11) return false;
+  if (/^(\d)\1+$/.test(cpf)) return false;
+
+  let soma = 0;
+  let resto;
+
+  for (let i = 1; i <= 9; i++)
+    soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+
+  resto = (soma * 10) % 11;
+
+  if (resto === 10 || resto === 11) resto = 0;
+
+  if (resto !== parseInt(cpf.substring(9, 10))) return false;
+
+  soma = 0;
+
+  for (let i = 1; i <= 10; i++)
+    soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+
+  resto = (soma * 10) % 11;
+
+  if (resto === 10 || resto === 11) resto = 0;
+
+  return resto === parseInt(cpf.substring(10, 11));
+}
+
+/* ---------------- COMPONENTE ---------------- */
+
 export default function Cadastro() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -27,17 +89,38 @@ export default function Cadastro() {
   });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    let { id, value } = e.target;
+
+    if (id === "firstName" || id === "lastName") value = formatName(value);
+    if (id === "cpf") value = formatCPF(value);
+    if (id === "phone") value = formatPhone(value);
+
+    setFormData(prev => ({ ...prev, [id]: value }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
 
-    // Validação básica
     const { firstName, lastName, birthDate, gender, cpf, email, phone, password } = formData;
+
     if (!firstName || !lastName || !birthDate || !gender || !cpf || !email || !phone || !password) {
       alert("Todos os campos são obrigatórios!");
+      setLoading(false);
+      return;
+    }
+
+    const cpfLimpo = onlyNumbers(cpf);
+    const phoneLimpo = onlyNumbers(phone);
+
+    if (!validarCPF(cpfLimpo)) {
+      alert("CPF inválido!");
+      setLoading(false);
+      return;
+    }
+
+    if (phoneLimpo.length < 10 || phoneLimpo.length > 11) {
+      alert("Telefone inválido!");
       setLoading(false);
       return;
     }
@@ -46,7 +129,11 @@ export default function Cadastro() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          cpf: cpfLimpo,
+          phone: phoneLimpo,
+        }),
       });
 
       const data = await res.json();
@@ -58,7 +145,8 @@ export default function Cadastro() {
       }
 
       alert("Cadastro realizado com sucesso!");
-      router.push("/Entrar"); // redireciona para login
+      router.push("/Entrar");
+
     } catch (err) {
       console.error("Erro no cadastro:", err);
       alert("Erro no servidor");
@@ -69,7 +157,7 @@ export default function Cadastro() {
 
   return (
     <div className={styles.signUpContainer}>
-      {/* Lado esquerdo */}
+
       <div className={styles.signUpWelcome}>
         <Link
           href="/"
@@ -83,31 +171,34 @@ export default function Cadastro() {
 
         <Image alt="Grafos em formato de olho" src={Graphs1} className={styles.signUpCircles} />
         <Image alt="Grafos em formato de olho" src={Graphs2} className={styles.signUpCirclesBottom} />
+
         <h1>Seja Bem-Vindo</h1>
+
         <p>
-          PostVision é uma solução inteligente que usa visão computacional para te ajudar a treinar com mais segurança. Corrija sua postura, evite lesões e acompanhe sua evolução com tecnologia a favor da sua saúde.
+          PostVision é uma solução inteligente que usa visão computacional para te ajudar a treinar com mais segurança.
+          Corrija sua postura, evite lesões e acompanhe sua evolução com tecnologia a favor da sua saúde.
         </p>
       </div>
 
-      {/* Lado direito */}
       <div className={styles.signUpFormSection}>
         <form className={styles.signUpFormBox} onSubmit={handleSubmit}>
+
           <div className={styles.signUpTitle}>Cadastro</div>
 
-          {/* Nome e Sobrenome */}
           <div className={styles.signUpRow}>
             <div className={styles.signUpInputGroup}>
               <label htmlFor="firstName">Nome</label>
               <input id="firstName" type="text" placeholder="Nome" value={formData.firstName} onChange={handleChange} />
             </div>
+
             <div className={styles.signUpInputGroup}>
               <label htmlFor="lastName">Sobrenome</label>
               <input id="lastName" type="text" placeholder="Sobrenome" value={formData.lastName} onChange={handleChange} />
             </div>
           </div>
 
-          {/* Data de Nascimento, Gênero e CPF */}
           <div className={styles.signUpRow}>
+
             <div className={styles.signUpInputGroup}>
               <label htmlFor="birthDate">Data de Nascimento</label>
               <input id="birthDate" type="date" value={formData.birthDate} onChange={handleChange} />
@@ -125,12 +216,20 @@ export default function Cadastro() {
 
             <div className={styles.signUpInputGroup}>
               <label htmlFor="cpf">CPF</label>
-              <input id="cpf" type="text" placeholder="190.203.400-14" value={formData.cpf} onChange={handleChange} />
+              <input
+                id="cpf"
+                type="text"
+                placeholder="000.000.000-00"
+                maxLength={14}
+                value={formData.cpf}
+                onChange={handleChange}
+              />
             </div>
+
           </div>
 
-          {/* Email e Telefone */}
           <div className={styles.signUpRow}>
+
             <div className={styles.signUpInputGroup}>
               <label htmlFor="email">Email</label>
               <input id="email" type="email" placeholder="email@gmail.com" value={formData.email} onChange={handleChange} />
@@ -138,13 +237,21 @@ export default function Cadastro() {
 
             <div className={styles.signUpInputGroup}>
               <label htmlFor="phone">Telefone</label>
-              <input id="phone" type="text" placeholder="13 997311644" value={formData.phone} onChange={handleChange} />
+              <input
+                id="phone"
+                type="text"
+                placeholder="(11) 99999-9999"
+                maxLength={15}
+                value={formData.phone}
+                onChange={handleChange}
+              />
             </div>
+
           </div>
 
-          {/* Senha */}
           <div className={styles.signUpInputGroup}>
             <label htmlFor="password">Senha</label>
+
             <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
               <input
                 id="password"
@@ -155,15 +262,28 @@ export default function Cadastro() {
                 value={formData.password}
                 onChange={handleChange}
               />
+
               <button
                 type="button"
                 onClick={() => setShowPassword((v) => !v)}
-                style={{ position: "absolute", right: 16, background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center", height: "100%" }}
+                style={{
+                  position: "absolute",
+                  right: 16,
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  height: "100%"
+                }}
                 tabIndex={-1}
-                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
               >
-                {showPassword ? <Icon icon="mdi:eye-outline" width={24} /> : <Icon icon="mdi:eye-off-outline" width={24} />}
+                {showPassword
+                  ? <Icon icon="mdi:eye-outline" width={24} />
+                  : <Icon icon="mdi:eye-off-outline" width={24} />}
               </button>
+
             </div>
           </div>
 
@@ -176,18 +296,25 @@ export default function Cadastro() {
           </div>
 
           <div className={styles.signUpDivider}>Ou</div>
+
           <div className={styles.signUpSocialButtons}>
+
             <button type="button" className={styles.signUpSocialBtn}>
               <Image src={LogoGoogle} alt="Google" className={styles.signUpSocialIcon} />
               Continuar com o Google
             </button>
+
             <button type="button" className={styles.signUpSocialBtn}>
               <Image src={LogoMicrosoft} alt="Microsoft" className={styles.signUpSocialIcon} />
               Continuar com o Microsoft
             </button>
+
           </div>
+
         </form>
       </div>
+
     </div>
   );
 }
+
